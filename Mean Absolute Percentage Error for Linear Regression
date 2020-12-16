@@ -1,0 +1,11 @@
+from sklearn.linear_model import LinearRegression
+
+model = LinearRegression()
+model.fit(train_X, train_Y.flatten())
+
+predY = model.predict(val_X)
+print("Mean Absolute Percentage Error:", MAPE(predY, val_Y))
+
+"""
+The Linear Regression model performs better on the dataset with a value of 0.29978086 in comparison to an undesirable higher value achieved via the NN model : 0.30327025.
+"""
