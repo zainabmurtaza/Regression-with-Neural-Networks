@@ -1,0 +1,32 @@
+#Importing packages
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+#Initializing parameters:
+# """
+nx = neurons input layer
+nh = neurons hidden layer
+ny = neurons output layer
+"""
+def initialize_parameters(nx,nh,ny):
+   
+   #Setting a random seed so the same random values are generated every time we run this function.
+
+    np.random.seed(1)
+
+    
+    #Initialize weights to small random numbers and biases to zeros for each layer.
+    W1=(2*np.random.rand(nh,nx)-1)*0.01
+    b1=np.zeros((nh,1))
+    W2=np.random.rand(ny,nh)*0.01
+    b2=np.zeros((ny,1))
+   
+    #Creating a dictionary of network parameters.
+    parameters = {"W1": W1,
+                  "b1": b1,
+                  "W2": W2,
+                  "b2": b2}
+    
+    return parameters
