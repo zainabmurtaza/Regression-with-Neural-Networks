@@ -1,0 +1,5 @@
+def compute_loss(Y,Yhat):
+   
+    n=Y.shape[1]
+    loss= np.square(np.subtract(Y, Yhat)).mean(axis= 1) 
+    return loss
