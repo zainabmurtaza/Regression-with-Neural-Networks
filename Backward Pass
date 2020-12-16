@@ -1,0 +1,25 @@
+'''
+Y is the observed output and Yhat is the predicted output (i.e., output of the network)
+
+Mean Squared Error derivative wrt Yhat is (Yhat-Y)
+'''
+def dMSELoss(Y,Yhat):
+    return (Yhat-Y) 
+
+
+'''
+The derivative of sigmoid(A) with respect to A is A*(1-A) 
+where * is elementwise multiplication 
+'''
+def dsigmoid(Z):
+    A=sigmoid(Z)
+    return (A*(1-A))
+
+
+def drelu(Z):
+    """
+np.where(condition, x, y) for each element of the array returns x if condition is true otherwise returns y.
+In this case for each element Z drelu=1 if the element is greater than 0 otherwise drelu=0
+"""
+    drelu=np.where(Z>0, 1.0, 0.0) 
+    return drelu 
