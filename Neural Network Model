@@ -1,0 +1,68 @@
+"""
+Arguments: train_X: is the training dataset (features)
+           train_Y: is the vector of labels for training_X
+           val_X: is the vector of validation dataset (features)
+           val_y: is the vector of labels for val_X
+           nh: is the number of neurons in the hidden layer
+           num_iterations: The number of iterations of gradient descent
+"""
+def create_nn_model(train_X,train_Y,nh, val_X, val_Y, num_iterations, learning_rate):
+    """
+    Do some safety check on the data before proceeding. 
+    train_X and val_X must have the same number of features (i.e., same number of rows)
+    train_X must have the same number of examples as train_Y (i.e., same number of columns )
+    val_X must have the same number of examples as Val_Y
+    """ 
+    assert(train_X.shape[0]==val_X.shape[0]), "train_X and val_X must have the same number of features"
+    assert(train_X.shape[1]==train_Y.size), "train_X and train_Y must have the same number of examples"
+    assert(val_X.shape[1]==val_Y.size), "val_X and val_Y must have the same number of examples" 
+    
+    
+    #getting the number of features
+    nx=train_X.shape[0]
+    
+    #This network is used for a Regression problem, therefore we use one neuron for the output layer with NO ACTIVATION.
+    ny=1
+    
+    # initializing the parameteres
+    parameters=initialize_parameters(nx,nh,ny)
+    
+    
+    #initialize lists to store the training and valideation losses for each iteration. 
+    val_loss=[]
+    train_loss=[]
+    
+    #run num_iterations of gradient descent
+    for i in range (0, num_iterations):
+        #run the forward pass on train_X
+        Yhat_train, train_cache= forward_pass(parameters,train_X)
+        
+        #run the forward pass on val_X
+        Yhat_val,val_cache= forward_pass(parameters,val_X)
+        
+        #compute the loss on the train and val datasets
+        train_loss.append(compute_loss(train_Y,Yhat_train))
+        val_loss.append(compute_loss(val_Y,Yhat_val))
+
+        
+        """
+        run the backward pass. Note that the backward pass is only run on the training data not the validation data
+        Because the learning must be only done on the training data and hence, validation data is not used to update
+        the model parameters.  
+        """
+        gradients=backward_pass(parameters, train_cache, train_X, train_Y,Yhat_train)
+        
+        
+        # update the parameters
+        parameters=update_parameters(parameters, gradients, learning_rate)
+        
+        #print the training loss and validation loss for each iteration.
+        print("iteration {} :train_loss:{} val_loss{}".format(i,train_loss[i],val_loss[i]))
+        
+    #create a dictionary history and put train_loss and validaiton_loss in it
+    history={"val_loss": val_loss,
+             "train_loss": train_loss}
+        
+        
+        #return the parameters and the history
+    return parameters, history
