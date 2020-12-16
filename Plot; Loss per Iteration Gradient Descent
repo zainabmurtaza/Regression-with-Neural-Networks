@@ -1,0 +1,26 @@
+#For visualization, please refer to https://colab.research.google.com/drive/1Gd3wur2lT717rmqcy8ZfI7bhGtJ-rM5j#scrollTo=4Ae2LBK5cJ-o
+
+"""
+Above is the Learning Curve, illustrated by validation and training loss per iteration of gradient descent.
+We can see from the curve that the training loss (blue curve) and validation loss (red curve) are nearly identical, 
+and can therefore deduce that the model does NOT overfit.
+The validation loss flattens out toward iteration no. 150 and further. 
+It can be said that the validation loss is monotonically decreasing (after iteration no. 150) as we increase the number of iterations.
+"""
+
+plt.plot(range(0,iterations),history["train_loss"],'b')
+plt.plot(range(0,iterations),history["val_loss"],'r')
+plt.ylabel('loss')
+plt.xlabel('iterations')
+plt.show()
+
+"""
+Learning Curve, illustrated by validation and training loss per iteration of gradient descent.
+
+We can see from the curve that the training loss (blue curve) and validation loss (red curve) are nearly identical, 
+and can therefore deduce that the model does NOT overfit.
+
+The validation loss flattens out toward iteration no. 150 and further. 
+
+It can be said that the validation loss is monotonically decreasing (after iteration no. 150) as we increase the number of iterations.
+"""
