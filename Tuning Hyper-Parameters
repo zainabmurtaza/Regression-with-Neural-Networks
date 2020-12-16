@@ -1,0 +1,33 @@
+parameters, history=create_nn_model(train_X.T,train_Y, 30, test_X.T, test_Y, 200, 0.01)
+loss1 = min(history['val_loss'])
+
+parameters, history=create_nn_model(train_X.T,train_Y, 40, test_X.T, test_Y, 300, 0.001)
+loss2 = min(history['val_loss'])
+
+parameters, history=create_nn_model(train_X.T,train_Y, 60, test_X.T, test_Y, 400, 0.001)
+loss3 = min(history['val_loss'])
+
+parameters, history=create_nn_model(train_X.T,train_Y, 80, test_X.T, test_Y, 200, 0.1)
+loss4 = min(history['val_loss'])
+
+
+
+print('Loss #1:', loss1)
+print('Loss #2:', loss2)
+print('Loss #3:', loss3)
+print('Loss #4:', loss4)
+
+"""
+Loss #4 gives us a value of 0.48560569 as validation loss. 
+
+Therefore, out of the few hyper-parameter combinations computed, we can say that the combination of 80 neurons, 
+200 iterations and the learning rate of 0.1 gives us a comparitively desirable value for validation loss.
+"""
+
+parameters, history=create_nn_model(train_X.T, train_Y, 80, val_X.T, val_Y, 200, 0.1)
+
+#Using the latest and optimized weights for Forward Pass
+
+def predict(parameters,X):
+    Yhat,cache=forward_pass(parameters, X)
+    return Yhat
