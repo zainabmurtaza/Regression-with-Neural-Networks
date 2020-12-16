@@ -1,0 +1,8 @@
+def MAPE(predictedY, observedY):
+    return np.divide(np.abs(np.subtract(observedY, predictedY)), observedY).mean(axis= 1) 
+    
+predicted_val=predict(parameters, val_X.T)
+
+print("Mean Absolute Percentage Error:", MAPE(predicted_val, val_Y))
+
+#Output was 0.30327025
