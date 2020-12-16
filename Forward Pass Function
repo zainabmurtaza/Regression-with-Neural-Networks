@@ -1,0 +1,22 @@
+#RelU Activation
+
+def relu(z):
+    return np.maximum(0,z)
+
+#Sigmoid Activation
+
+def sigmoid(z):
+    a= 1/(1+np.exp(-z))
+    return a
+    
+    
+def forward_pass(parameters,X):
+    Z1= np.dot(parameters["W1"],X)+parameters["b1"] # b1 is broadcasted n times before it is added to np.dpt(W1,X1)
+    A1=relu(Z1)
+    Z2=np.dot(parameters["W2"],A1)+parameters["b2"] #b2 is broadcasted n times before it is added to np.dpt(W2,A1)
+    Yhat=Z2
+       
+    cache = {"A1": A1,
+             "Z1":Z1,
+             "Z2": Z2}
+    return Yhat,cache
