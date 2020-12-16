@@ -1,0 +1,44 @@
+#Reading Input Datasets 
+
+train = pd.read_csv("sample_data/california_housing_train.csv")
+val = pd.read_csv("sample_data/california_housing_test.csv")
+
+#Splitting the data
+
+test = train.sample(frac=0.2)
+train = train[~train.index.isin(test.index.tolist())]
+
+print(train.shape)
+print(test.shape)
+print(val.shape)
+
+#Storing data in Numpy Arrays, separating features and target variable, and reshaping to 2D arrays.
+
+train = train.to_numpy()
+test = test.to_numpy()
+val = val.to_numpy()
+
+train_X=train[:,:-1]
+train_Y=train[:,-1]
+train_Y=np.reshape(train_Y, (1,train_Y.size))
+
+test_X=test[:,:-1]
+test_Y=test[:,-1]
+test_Y=np.reshape(test_Y, (1,test_Y.size))
+
+val_X=val[:,:-1]
+val_Y=val[:,-1]
+val_Y=np.reshape(val_Y, (1,val_Y.size))
+
+# Normalization of features and scaling down of target variable.
+
+train_X = (train_X - train_X.mean(axis= 0)) / train_X.std(axis=0)
+test_X = (test_X - test_X.mean(axis= 0)) / test_X.std(axis=0)
+val_X = (val_X - val_X.mean(axis= 0)) / val_X.std(axis=0)
+
+train_Y = train_Y / 100000
+test_Y = test_Y / 100000
+val_Y = val_Y / 100000
+
+iterations=300
+parameters, history=create_nn_model(train_X.T,train_Y, 40, test_X.T, test_Y, iterations, 0.01)
